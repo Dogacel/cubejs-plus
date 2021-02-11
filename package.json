@@ -1,0 +1,38 @@
+{
+  "name": "cubejsplus",
+  "version": "0.1.0",
+  "description": "An extensive package inspired by cubejs with added functionality.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "npm run build && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Dogacel/cubejs-plus.git"
+  },
+  "keywords": [
+    "cube",
+    "rubiks",
+    "cubejs",
+    "solve",
+    "speedcubing",
+    "speedcube"
+  ],
+  "author": "Doğaç Eldenk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dogacel/cubejs-plus/issues"
+  },
+  "homepage": "https://github.com/Dogacel/cubejs-plus#readme",
+  "dependencies": {
+    "@types/node": "^14.14.27",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.1.5"
+  }
+}
