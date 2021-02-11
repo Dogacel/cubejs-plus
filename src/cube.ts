@@ -20,6 +20,10 @@ export class Cube {
         this.faces[Li] = Face.from(Array(9).fill(Oc));
     }
 
+    public isSolved(): boolean {
+        return this.faces.reduce<boolean>((prev, curr) => prev && curr.isSolid(), true);
+    }
+
     public rotate(r: Rotation) {
         switch (r) {
             case X:

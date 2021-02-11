@@ -10,6 +10,10 @@ export class Face {
         return face;
     }
 
+    public isSolid(): boolean {
+        return this.colors.every(c => c === this.colors[0]);
+    }
+
     public r90() {
         permute(this.colors, [0, 1, 2, 3, 4, 5, 6, 7, 8], [6, 3, 0, 7, 4, 1, 8, 5, 2]);
     }
