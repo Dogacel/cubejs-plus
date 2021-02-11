@@ -1,62 +1,10 @@
-import { assert } from "console";
-
-export enum Color {
-    Wc = 0, Gc, Rc, Yc, Bc, Oc
-}
-
-export enum Rotation {
-    X = 0, X2, Xp, Y, Y2, Yp, Z, Z2, Zp
-}
-
-export enum FaceIndices {
-    Ui = 0, Fi, Ri, Di, Bi, Li
-}
-
-export enum Move {
-    U, U2, Up,
-    F, F2, Fp,
-    R, R2, Rp,
-    D, D2, Dp,
-    B, B2, Bp,
-    L, L2, Lp,
-    M, M2, Mp,
-    S, S2, Sp,
-    E, E2, Ep
-}
+import { Color, Rotation, FaceIndices } from "./consts";
+import { Face } from "./face";
+import { permute } from "./utils";
 
 const { Wc, Gc, Rc, Yc, Bc, Oc } = Color;
 const { X, X2, Xp, Y, Y2, Yp, Z, Z2, Zp } = Rotation;
 const { Ui, Fi, Ri, Di, Bi, Li } = FaceIndices;
-
-function permute(array: Array<any>, to: Array<number>, from: Array<number>) {
-    assert(from.length === to.length);
-    const memo = array.slice();
-    for (let i = 0; i < array.length; i++) {
-        array[to[i]] = memo[from[i]];
-    }
-}
-
-class Face {
-    public colors: Array<Color>
-
-    public static from(colors: Array<Color>): Face {
-        const face = new Face();
-        face.colors = colors.slice();
-        return face;
-    }
-
-    public r90() {
-        permute(this.colors, [0, 1, 2, 3, 4, 5, 6, 7, 8], [6, 3, 0, 7, 4, 1, 8, 5, 2]);
-    }
-
-    public r180() {
-        permute(this.colors, [0, 1, 2, 3, 4, 5, 6, 7, 8], [8, 7, 6, 5, 4, 3, 2, 1, 0]);
-    }
-
-    public r270() {
-        permute(this.colors, [0, 1, 2, 3, 4, 5, 6, 7, 8], [2, 5, 8, 1, 4, 7, 0, 3, 6]);
-    }
-}
 
 
 export class Cube {
