@@ -1,6 +1,6 @@
 import { Color, Rotation, FaceIndices } from "./consts";
 import { Face } from "./face";
-import { permute } from "./utils";
+import { permute, shift } from "./utils";
 
 const { Wc, Gc, Rc, Yc, Bc, Oc } = Color;
 const { X, X2, Xp, Y, Y2, Yp, Z, Z2, Zp } = Rotation;
@@ -24,52 +24,25 @@ export class Cube {
         return this.faces.reduce<boolean>((prev, curr) => prev && curr.isSolid(), true);
     }
 
+    public handleRotation(faces: Array<FaceIndices>, excluded: Array<FaceIndices>, r: Rotation) {
+        this.faces[excluded[0]].getRotator(r, false);
+        this.faces[excluded[1]].getRotator(r, true);
+
+        permute(this.faces, faces, shift(faces, (r % 3) + 1));
+    }
+
     public rotate(r: Rotation) {
+
+
         switch (r) {
-            case X:
-                this.faces[Ri].r90();
-                this.faces[Li].r270();
-                permute(this.faces, [Fi, Ui, Bi, Di], [Di, Fi, Ui, Bi]);
+            case X: case X2: case Xp:
+                this.handleRotation([Fi, Ui, Bi, Di], [Ri, Li], r);
                 break;
-            case X2:
-                this.faces[Ri].r180();
-                this.faces[Li].r180();
-                permute(this.faces, [Fi, Ui, Bi, Di], [Bi, Di, Fi, Ui]);
+            case Y: case Y2: case Yp:
+                this.handleRotation([Fi, Li, Bi, Ri], [Ui, Di], r);
                 break;
-            case Xp:
-                this.faces[Ri].r270();
-                this.faces[Li].r90();
-                permute(this.faces, [Fi, Ui, Bi, Di], [Ui, Bi, Di, Fi]);
-                break;
-            case Y:
-                this.faces[Ui].r90();
-                this.faces[Di].r270();
-                permute(this.faces, [Fi, Ri, Bi, Li], [Ri, Bi, Li, Fi]);
-                break;
-            case Y2:
-                this.faces[Ui].r180();
-                this.faces[Di].r180();
-                permute(this.faces, [Fi, Ri, Bi, Li], [Bi, Li, Fi, Ri]);
-                break;
-            case Yp:
-                this.faces[Ui].r270();
-                this.faces[Di].r90();
-                permute(this.faces, [Fi, Ri, Bi, Li], [Li, Fi, Ri, Bi]);
-                break;
-            case Z:
-                this.faces[Fi].r90();
-                this.faces[Bi].r270();
-                permute(this.faces, [Ui, Ri, Di, Li], [Li, Ui, Ri, Di]);
-                break;
-            case Z2:
-                this.faces[Fi].r180();
-                this.faces[Bi].r180();
-                permute(this.faces, [Ui, Ri, Di, Li], [Di, Li, Ui, Ri]);
-                break;
-            case Zp:
-                this.faces[Fi].r270();
-                this.faces[Bi].r90();
-                permute(this.faces, [Ui, Ri, Di, Li], [Ri, Di, Li, Ui]);
+            case Z: case Z2: case Zp:
+                this.handleRotation([Ui, Ri, Di, Li], [Fi, Bi], r);
                 break;
         }
     }

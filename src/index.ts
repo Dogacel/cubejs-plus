@@ -1,4 +1,5 @@
-import { Cube, Rotation } from "./cube";
+import { Rotation } from "./consts";
+import { Cube } from "./cube";
 export * from "./cube";
 
 const cube = new Cube();

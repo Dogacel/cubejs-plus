@@ -1,4 +1,4 @@
-import { Color } from "./consts";
+import { Color, Rotation } from "./consts";
 import { permute } from "./utils";
 
 export class Face {
@@ -12,6 +12,12 @@ export class Face {
 
     public isSolid(): boolean {
         return this.colors.every(c => c === this.colors[0]);
+    }
+
+    public getRotator(r: Rotation, inv: boolean) {
+        const rotationMap = { 0: this.r90, 1: this.r180, 2: this.r270 };
+
+        return !inv ? rotationMap[r % 3] : rotationMap[2 - (r % 3)];
     }
 
     public r90() {
