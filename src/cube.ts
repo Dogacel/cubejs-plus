@@ -1,6 +1,6 @@
-import { Color, Rotation, FaceIndices, Move } from "./consts";
+import { Color, Rotation, FaceIndices, Move, relations } from "./consts";
 import { Face } from "./face";
-import { permute, shift } from "./utils";
+import { permute, crossPermute, shift } from "./utils";
 
 const { Wc, Gc, Rc, Yc, Bc, Oc } = Color;
 const { X, X2, Xp, Y, Y2, Yp, Z, Z2, Zp } = Rotation;
@@ -28,8 +28,8 @@ export class Cube {
     }
 
     private handleRotation(faces: Array<FaceIndices>, excluded: Array<FaceIndices>, r: Rotation) {
-        this.faces[excluded[0]].getRotator(r, false)();
-        this.faces[excluded[1]].getRotator(r, true)();
+        this.faces[excluded[0]].useRotator(r, false);
+        this.faces[excluded[1]].useRotator(r, true);
 
         permute(this.faces, faces, shift(faces, (r % 3) + 1));
     }
@@ -48,19 +48,45 @@ export class Cube {
         }
     }
 
+    private relation(source: FaceIndices, target: FaceIndices): Array<number> {
+
+        return relations[source][target];
+    }
+
+    private handleMove(face: FaceIndices, connections: Array<FaceIndices>, m: Move) {
+        const repeats = (m % 3) + 1;
+        connections = connections.reverse();
+        for (var i = 0; i < repeats; i++)
+            crossPermute(
+                connections.map(c => this.faces[c].colors),
+                connections.map(c => this.relation(face, c))
+            );
+        this.faces[face].useRotator(m % 3, false);
+    }
+
+    public apply(m: Array<Move>) {
+        m.forEach(move => this.move(move));
+    }
+
     public move(m: Move) {
         switch (m) {
             case U: case U2: case Up:
+                this.handleMove(Ui, [Fi, Li, Bi, Ri], m);
                 break;
             case F: case F2: case Fp:
+                this.handleMove(Fi, [Ui, Li, Di, Ri], m);
                 break;
             case R: case R2: case Rp:
+                this.handleMove(Ri, [Ui, Bi, Di, Fi], m);
                 break;
             case D: case D2: case Dp:
+                this.handleMove(Di, [Fi, Ri, Bi, Li], m);
                 break;
             case B: case B2: case Bp:
+                this.handleMove(Bi, [Ui, Li, Di, Ri], m);
                 break;
             case L: case L2: case Lp:
+                this.handleMove(Li, [Fi, Di, Bi, Ui], m);
                 break;
         }
     }
@@ -82,7 +108,7 @@ export class Cube {
                     } else if (j < 9) {
                         process.stdout.write(this.faces[Ri].colors[(i - 3) * 3 + (j % 3)].toString())
                     } else {
-                        process.stdout.write(this.faces[Bi].colors[(i - 3) * 3 + (j % 3)].toString())
+                        process.stdout.write(this.faces[Bi].colors[(5 - i) * 3 + 2 - (j % 3)].toString())
                     }
                 } else {
                     if (j > 2 && j < 6) {

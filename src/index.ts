@@ -1,53 +1,18 @@
-import { Rotation } from "./consts";
+import { Move, Rotation } from "./consts";
 import { Cube } from "./cube";
+import { parse } from "./utils";
 export * from "./cube";
 
 const cube = new Cube();
 
 cube.print();
-console.log();
+console.log(cube.isSolved());
 
-cube.rotate(Rotation.X);
 
-cube.print();
-console.log();
-
-cube.rotate(Rotation.X2);
-
-cube.print();
-console.log();
-
-cube.rotate(Rotation.Xp);
+const algorihtm = "R U R' U R U2 R' U L' U' L U' L' U2 L U' R U' R U R U R U' R' U' R2";
+const moves = parse(algorihtm);
+console.log(moves);
+cube.apply(moves);
 
 cube.print();
-console.log();
-
-cube.rotate(Rotation.Y);
-
-cube.print();
-console.log();
-
-cube.rotate(Rotation.Y2);
-
-cube.print();
-console.log();
-
-cube.rotate(Rotation.Yp);
-
-cube.print();
-console.log();
-
-cube.rotate(Rotation.Z);
-
-cube.print();
-console.log();
-
-cube.rotate(Rotation.Z2);
-
-cube.print();
-console.log();
-
-cube.rotate(Rotation.Zp);
-
-cube.print();
-console.log();
+console.log(cube.isSolved());

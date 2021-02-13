@@ -14,10 +14,13 @@ export class Face {
         return this.colors.every(c => c === this.colors[0]);
     }
 
-    public getRotator(r: Rotation, inv: boolean) {
-        const rotationMap = { 0: this.r90, 1: this.r180, 2: this.r270 };
+    public useRotator(r: Rotation, inv: boolean) {
+        var coef = 2 - (r % 3);
+        if (!inv) coef = 2 - coef;
 
-        return !inv ? rotationMap[r % 3] : rotationMap[2 - (r % 3)];
+        if (coef === 0) this.r90();
+        else if (coef === 1) this.r180();
+        else this.r270();
     }
 
     public r90() {
