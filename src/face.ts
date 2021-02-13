@@ -1,4 +1,4 @@
-import { Color, Rotation } from "./consts";
+import { Color, Move } from "./consts";
 import { permute } from "./utils";
 
 export class Face {
@@ -14,7 +14,7 @@ export class Face {
         return this.colors.every(c => c === this.colors[0]);
     }
 
-    public useRotator(r: Rotation, inv: boolean) {
+    public useRotator(r: Move, inv: boolean) {
         var coef = 2 - (r % 3);
         if (!inv) coef = 2 - coef;
 

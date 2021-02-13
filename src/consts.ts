@@ -19,7 +19,12 @@ export enum Move {
     X, X2, Xp,
     Y, Y2, Yp,
     Z, Z2, Zp,
-
+    Uw, Uw2, Uwp,
+    Fw, Fw2, Fwp,
+    Rw, Rw2, Rwp,
+    Dw, Dw2, Dwp,
+    Bw, Bw2, Bwp,
+    Lw, Lw2, Lwp,
 }
 
 export const relations = [
