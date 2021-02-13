@@ -1,11 +1,14 @@
-import { Color, Rotation, FaceIndices } from "./consts";
+import { Color, Rotation, FaceIndices, Move } from "./consts";
 import { Face } from "./face";
 import { permute, shift } from "./utils";
 
 const { Wc, Gc, Rc, Yc, Bc, Oc } = Color;
 const { X, X2, Xp, Y, Y2, Yp, Z, Z2, Zp } = Rotation;
 const { Ui, Fi, Ri, Di, Bi, Li } = FaceIndices;
-
+const {
+    U, U2, Up, F, F2, Fp, R, R2, Rp,
+    D, D2, Dp, B, B2, Bp, L, L2, Lp,
+} = Move;
 
 export class Cube {
     public faces: Array<Face>;
@@ -24,7 +27,7 @@ export class Cube {
         return this.faces.reduce<boolean>((prev, curr) => prev && curr.isSolid(), true);
     }
 
-    public handleRotation(faces: Array<FaceIndices>, excluded: Array<FaceIndices>, r: Rotation) {
+    private handleRotation(faces: Array<FaceIndices>, excluded: Array<FaceIndices>, r: Rotation) {
         this.faces[excluded[0]].getRotator(r, false);
         this.faces[excluded[1]].getRotator(r, true);
 
@@ -32,8 +35,6 @@ export class Cube {
     }
 
     public rotate(r: Rotation) {
-
-
         switch (r) {
             case X: case X2: case Xp:
                 this.handleRotation([Fi, Ui, Bi, Di], [Ri, Li], r);
@@ -43,6 +44,23 @@ export class Cube {
                 break;
             case Z: case Z2: case Zp:
                 this.handleRotation([Ui, Ri, Di, Li], [Fi, Bi], r);
+                break;
+        }
+    }
+
+    public move(m: Move) {
+        switch (m) {
+            case U: case U2: case Up:
+                break;
+            case F: case F2: case Fp:
+                break;
+            case R: case R2: case Rp:
+                break;
+            case D: case D2: case Dp:
+                break;
+            case B: case B2: case Bp:
+                break;
+            case L: case L2: case Lp:
                 break;
         }
     }
