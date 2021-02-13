@@ -28,8 +28,8 @@ export class Cube {
     }
 
     private handleRotation(faces: Array<FaceIndices>, excluded: Array<FaceIndices>, r: Rotation) {
-        this.faces[excluded[0]].getRotator(r, false);
-        this.faces[excluded[1]].getRotator(r, true);
+        this.faces[excluded[0]].getRotator(r, false)();
+        this.faces[excluded[1]].getRotator(r, true)();
 
         permute(this.faces, faces, shift(faces, (r % 3) + 1));
     }
