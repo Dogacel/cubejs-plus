@@ -1,6 +1,7 @@
 import { assert } from "console";
 import { FaceIndices, Move } from "./consts";
 import { Cube } from "./cube";
+import { Face } from "./face";
 
 const { Ui, Fi, Ri, Di, Bi, Li } = FaceIndices;
 
@@ -44,6 +45,46 @@ export function parse(moveString: string): Array<Move> {
     moveString = moveString.split("W").join("w");
     moveString = moveString.split("'").join("p");
     return moveString.split(" ").map(substr => Move[substr as keyof typeof Move]);
+}
+
+export function reconstruct(scramble: string, solution: string) {
+    const cube = new Cube();
+    const scrambleMoves = parse(scramble);
+    const solutionMoves = parse(solution);
+    const solutionSplit = solution.split(" ");
+
+    const reconstruction = [] as string[][];
+    var lastState = 0;
+    var cross;
+
+    cube.apply(scrambleMoves);
+    for (var currentState = 0; currentState < solutionMoves.length; currentState++) {
+        if (cube.solvedCrosses().length > 0 && reconstruction.length === 0) {
+            reconstruction.push(solutionSplit.slice(lastState, currentState));
+            lastState = currentState;
+            cross = cube.solvedCrosses()[0];
+        }
+
+        if (cube.solvedCrosses().length > 0) {
+            while (cube.solvedPairs([cross]).length >= reconstruction.length) {
+                reconstruction.push(solutionSplit.slice(lastState, currentState));
+                lastState = currentState;
+            }
+        }
+
+        if (cross && cube.solvedPairs([cross]).length === 4) {
+            if (!cube.isSolved()) {
+                const crossFace = FaceIndices[cross + 'i'];
+                if (cube.opposite(crossFace).isSolid() && reconstruction.length === 5) {
+                    reconstruction.push(solutionSplit.slice(lastState, currentState));
+                    lastState = currentState;
+                }
+            }
+        }
+        cube.move(solutionMoves[currentState]);
+    }
+    reconstruction.push(solutionSplit.slice(lastState));
+    return reconstruction;
 }
 
 export function print(cube: Cube) {

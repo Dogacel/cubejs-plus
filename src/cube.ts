@@ -211,7 +211,11 @@ export class Cube {
                 edges.filter(edge => edge === others).map(() => pairs[pairs.length - 1].push(corner));
             });
         });
-        return pairs;
+        return pairs.reduce((prev, curr) => prev.concat(curr), [] as string[]);
+    }
+
+    public opposite(face: FaceIndices): Face {
+        return this.faces[(face + 3) % 6];
     }
 
     public print() {
