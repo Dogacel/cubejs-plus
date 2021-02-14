@@ -187,12 +187,31 @@ export class Cube {
     public solvedCrosses() {
         const values = Object.values(FaceIndices).splice(0, 6) as number[];
         const edges = this.solvedEdges().join('');
-        const crosses = [] as Array<FaceIndices>;
+        const crosses = [] as string[];
         for (var f1 = 0; f1 < 6; f1++) {
             if (edges.split(values[f1][0]).length - 1 === 4)
                 crosses.push(values[f1][0]);
         }
         return crosses;
+    }
+
+    public solvedPairs(crosses: string[] = []) {
+        if (crosses.length === 0)
+            crosses = this.solvedCrosses();
+
+        const edges = this.solvedEdges();
+        const corners = this.solvedCorners();
+        const pairs = [] as string[][];
+        crosses.forEach(cross => {
+            pairs.push([]);
+            corners.forEach(corner => {
+                if (corner.split(cross).length - 1 === 0)
+                    return;
+                const others = corner.split(cross).join("");
+                edges.filter(edge => edge === others).map(() => pairs[pairs.length - 1].push(corner));
+            });
+        });
+        return pairs;
     }
 
     public print() {

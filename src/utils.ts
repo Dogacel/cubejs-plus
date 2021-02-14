@@ -34,6 +34,7 @@ export function shift(array: Array<any>, amount: number) {
 
 export function parse(moveString: string): Array<Move> {
     moveString = moveString.toUpperCase();
+    moveString = moveString.split("W").join("w");
     moveString = moveString.split("'").join("p");
     return moveString.split(" ").map(substr => Move[substr as keyof typeof Move]);
 }
