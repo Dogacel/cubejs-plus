@@ -184,6 +184,17 @@ export class Cube {
         return corners;
     }
 
+    public solvedCrosses() {
+        const values = Object.values(FaceIndices).splice(0, 6) as number[];
+        const edges = this.solvedEdges().join('');
+        const crosses = [] as Array<FaceIndices>;
+        for (var f1 = 0; f1 < 6; f1++) {
+            if (edges.split(values[f1][0]).length - 1 === 4)
+                crosses.push(values[f1][0]);
+        }
+        return crosses;
+    }
+
     public print() {
         for (var i = 0; i < 9; i++) {
             for (var j = 0; j < 12; j++) {
