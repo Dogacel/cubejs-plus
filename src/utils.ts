@@ -83,6 +83,7 @@ export function reconstruct(scramble: string, solution: string) {
         }
         cube.move(solutionMoves[currentState]);
     }
+    cube.print();
     reconstruction.push(solutionSplit.slice(lastState));
     return reconstruction;
 }

@@ -107,13 +107,13 @@ export class Cube {
                 this.handleMove(Li, [Fi, Di, Bi, Ui], m);
                 break;
             case M: case M2: case Mp:
-                this.apply([R + o, Lp - o, X + o]);
+                this.apply([Rp - o, L + o, X + o]);
                 break;
             case S: case S2: case Sp:
-                this.apply([U + o, Dp - o, Y + o]);
+                this.apply([Up - o, D + o, Y + o]);
                 break;
             case E: case E2: case Ep:
-                this.apply([F + o, Bp - o, Z + o]);
+                this.apply([Fp - o, B + o, Z + o]);
                 break;
             case X: case X2: case Xp:
                 this.handleRotation([Fi, Ui, Bi, Di], [Ri, Li], m);
