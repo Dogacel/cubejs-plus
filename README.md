@@ -2,6 +2,13 @@
 
 **Cubejs+** is an extensive JavaScript / TypeScript library for representing and controlling a 3x3x3 Rubik's Cube. The aim of **Cubejs+** is to create an open-source universal API for parsing the information collected from a bluetooth enabled speedcube for analysis. This library is inspired from [cube.js](https://github.com/ldez/cubejs) and [cubing.js](https://github.com/cubing/cubing.js).
 
+## Features
+
+- Make moves and rotations on a cube.
+- Detect if cube is solved.
+- Detecting solved edges, corners, crosses, F2L pairs, layers.
+- Detecting steps of a CFOP solve.
+
 ## Sample Code
 
 ```typescript
@@ -38,7 +45,7 @@ reconstruct(scramble, solution);
 ## Roadmap
 
 - [ ] Tidy up string and enum mixture in `solved...()` methods.
-- Write extensive unit tests:
+- [ ] Write extensive unit tests:
   - [ ] Check if every move is working correctly.
   - [ ] Check if parser can parse correctly.
   - [ ] Check reconstruction is working on edge cases (Skips, xcrosses)
