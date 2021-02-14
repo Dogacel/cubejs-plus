@@ -27,6 +27,7 @@ export enum Move {
     Lw, Lw2, Lwp,
 }
 
+
 export const relations = [
     [ // U
         [],

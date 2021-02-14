@@ -17,3 +17,4 @@ cube.print();
 console.log(cube.isSolved());
 
 console.log(cube.solvedEdges());
+console.log(cube.solvedCorners());

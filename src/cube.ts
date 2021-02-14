@@ -1,6 +1,6 @@
 import { Color, FaceIndices, Move, relations } from "./consts";
 import { Face } from "./face";
-import { permute, crossPermute, shift } from "./utils";
+import { permute, crossPermute, shift, intersect } from "./utils";
 
 const { Wc, Gc, Rc, Yc, Bc, Oc } = Color;
 const { Ui, Fi, Ri, Di, Bi, Li } = FaceIndices;
@@ -150,6 +150,8 @@ export class Cube {
         const edges = [] as string[];
         for (var f1 = 0; f1 < 6; f1++) {
             for (var f2 = f1 + 1; f2 < 6; f2++) {
+                if (relations[f2][f1].length === 0)
+                    continue;
                 const c1 = this.faces[f1].colors[relations[f2][f1][1]];
                 const c2 = this.faces[f2].colors[relations[f1][f2][1]];
                 if (c1 === this.faces[f1].center() && c2 === this.faces[f2].center()) {
@@ -161,7 +163,25 @@ export class Cube {
     }
 
     public solvedCorners() {
+        const values = Object.values(FaceIndices).splice(0, 6) as number[];
+        const corners = [] as string[];
+        for (var f1 = 0; f1 < 6; f1++) {
+            for (var f2 = f1 + 1; f2 < 6; f2++) {
+                for (var f3 = f2 + 1; f3 < 6; f3++) {
+                    if (relations[f2][f1].length === 0 || relations[f3][f1].length === 0 || relations[f2][f1].length === 0)
+                        continue;
+                    const f1i = intersect([relations[f2][f1], relations[f3][f1]])[0];
+                    const f2i = intersect([relations[f1][f2], relations[f3][f2]])[0];
+                    const f3i = intersect([relations[f1][f3], relations[f2][f3]])[0];
 
+                    if (this.faces[f1].colors[f1i] === this.faces[f1].center() &&
+                        this.faces[f2].colors[f2i] === this.faces[f2].center() &&
+                        this.faces[f3].colors[f3i] === this.faces[f3].center())
+                        corners.push(values[f1][0] + values[f2][0] + values[f3][0]);
+                }
+            }
+        }
+        return corners;
     }
 
     public print() {

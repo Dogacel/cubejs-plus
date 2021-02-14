@@ -37,3 +37,7 @@ export function parse(moveString: string): Array<Move> {
     moveString = moveString.split("'").join("p");
     return moveString.split(" ").map(substr => Move[substr as keyof typeof Move]);
 }
+
+export function intersect<T>(arrays: Array<Array<T>>): Array<T> {
+    return arrays.reduce((prev, curr) => prev.filter(x => curr.includes(x)), arrays[0]);
+}
