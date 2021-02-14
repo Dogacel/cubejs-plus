@@ -14,6 +14,10 @@ export class Face {
         return this.colors.every(c => c === this.colors[0]);
     }
 
+    public center(): Color {
+        return this.colors[4];
+    }
+
     public useRotator(r: Move, inv: boolean) {
         var coef = 2 - (r % 3);
         if (!inv) coef = 2 - coef;

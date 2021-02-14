@@ -145,6 +145,25 @@ export class Cube {
         }
     }
 
+    public solvedEdges() {
+        const values = Object.values(FaceIndices).splice(0, 6) as number[];
+        const edges = [] as string[];
+        for (var f1 = 0; f1 < 6; f1++) {
+            for (var f2 = f1 + 1; f2 < 6; f2++) {
+                const c1 = this.faces[f1].colors[relations[f2][f1][1]];
+                const c2 = this.faces[f2].colors[relations[f1][f2][1]];
+                if (c1 === this.faces[f1].center() && c2 === this.faces[f2].center()) {
+                    edges.push(values[f1][0] + values[f2][0]);
+                }
+            }
+        }
+        return edges;
+    }
+
+    public solvedCorners() {
+
+    }
+
     public print() {
         for (var i = 0; i < 9; i++) {
             for (var j = 0; j < 12; j++) {
