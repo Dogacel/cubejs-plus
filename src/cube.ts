@@ -1,6 +1,6 @@
 import { Color, FaceIndices, Move, relations } from "./consts";
 import { Face } from "./face";
-import { permute, crossPermute, shift, intersect } from "./utils";
+import { permute, crossPermute, shift, intersect, print } from "./utils";
 
 const { Wc, Gc, Rc, Yc, Bc, Oc } = Color;
 const { Ui, Fi, Ri, Di, Bi, Li } = FaceIndices;
@@ -215,34 +215,7 @@ export class Cube {
     }
 
     public print() {
-        for (var i = 0; i < 9; i++) {
-            for (var j = 0; j < 12; j++) {
-                if (i < 3) {
-                    if (j > 2 && j < 6) {
-                        process.stdout.write(this.faces[Ui].colors[i * 3 + (j % 3)].toString());
-                    } else {
-                        process.stdout.write(" ")
-                    }
-                } else if (i < 6) {
-                    if (j < 3) {
-                        process.stdout.write(this.faces[Li].colors[(i - 3) * 3 + (j % 3)].toString())
-                    } else if (j < 6) {
-                        process.stdout.write(this.faces[Fi].colors[(i - 3) * 3 + (j % 3)].toString())
-                    } else if (j < 9) {
-                        process.stdout.write(this.faces[Ri].colors[(i - 3) * 3 + (j % 3)].toString())
-                    } else {
-                        process.stdout.write(this.faces[Bi].colors[(5 - i) * 3 + 2 - (j % 3)].toString())
-                    }
-                } else {
-                    if (j > 2 && j < 6) {
-                        process.stdout.write(this.faces[Di].colors[(i - 6) * 3 + (j % 3)].toString());
-                    } else {
-                        process.stdout.write(" ")
-                    }
-                }
-            }
-            process.stdout.write("\n");
-        }
+        print(this);
     }
 
 }
