@@ -1,5 +1,5 @@
 {
-  "name": "cubejsplus",
+  "name": "@dogacel/cubejs-plus",
   "version": "0.1.0",
   "description": "An extensive package inspired by cubejs with added functionality.",
   "main": "dist/index.js",
