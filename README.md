@@ -1,4 +1,4 @@
-# Cubejs+
+# Cubejs+ ![Node.js Package](https://github.com/Dogacel/cubejs-plus/workflows/Node.js%20Package/badge.svg)
 
 **Cubejs+** is an extensive JavaScript / TypeScript library for representing and controlling a 3x3x3 Rubik's Cube. The aim of **Cubejs+** is to create an open-source universal API for parsing the information collected from a bluetooth enabled speedcube for analysis. This library is inspired from [cube.js](https://github.com/ldez/cubejs) and [cubing.js](https://github.com/cubing/cubing.js).
 
