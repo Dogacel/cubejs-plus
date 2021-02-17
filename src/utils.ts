@@ -47,6 +47,14 @@ export function parse(moveString: string): Array<Move> {
     return moveString.split(" ").map(substr => Move[substr as keyof typeof Move]);
 }
 
+export function reverseMove(m: Move): Move {
+    return m + 1 - (m % 3) as Move
+}
+
+export function reverseMoves(moves: Array<Move>): Array<Move> {
+    return moves.reverse().map(m => reverseMove(m))
+}
+
 export function reconstruct(scramble: string, solution: string) {
     const cube = Cube.solved();
     const scrambleMoves = parse(scramble);
