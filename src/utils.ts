@@ -48,7 +48,7 @@ export function parse(moveString: string): Array<Move> {
 }
 
 export function reconstruct(scramble: string, solution: string) {
-    const cube = new Cube();
+    const cube = Cube.solved();
     const scrambleMoves = parse(scramble);
     const solutionMoves = parse(solution);
     const solutionSplit = solution.split(" ");

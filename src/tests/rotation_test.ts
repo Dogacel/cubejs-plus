@@ -7,7 +7,7 @@ import { Face } from "../face";
 const { Ui, Fi, Ri, Di, Bi, Li } = FaceIndices;
 
 const createAndMove = (m: Move, rest: (oldFaces: Face[], newFaces: Face[]) => any) => {
-    const cube = new Cube()
+    const cube = Cube.allDifferent();
     const oldFaces = cube.faces.slice()
     cube.move(m)
     return () => rest(oldFaces, cube.faces);

@@ -17,15 +17,30 @@ const {
 export class Cube {
     public faces: Array<Face>;
 
-    constructor() {
-        this.faces = new Array<Face>(6);
-        this.faces[Ui] = Face.from(Array(9).fill(Wc));
-        this.faces[Fi] = Face.from(Array(9).fill(Gc));
-        this.faces[Ri] = Face.from(Array(9).fill(Rc));
-        this.faces[Di] = Face.from(Array(9).fill(Yc));
-        this.faces[Bi] = Face.from(Array(9).fill(Bc));
-        this.faces[Li] = Face.from(Array(9).fill(Oc));
+    public static solved(): Cube {
+        const cube = new Cube();
+        cube.faces = new Array<Face>(6);
+        cube.faces[Ui] = Face.from(Array(9).fill(Wc));
+        cube.faces[Fi] = Face.from(Array(9).fill(Gc));
+        cube.faces[Ri] = Face.from(Array(9).fill(Rc));
+        cube.faces[Di] = Face.from(Array(9).fill(Yc));
+        cube.faces[Bi] = Face.from(Array(9).fill(Bc));
+        cube.faces[Li] = Face.from(Array(9).fill(Oc));
+        return cube;
     }
+
+    public static allDifferent(): Cube {
+        const cube = new Cube();
+        cube.faces = new Array<Face>(6);
+        cube.faces[Ui] = Face.from(Array(9).fill(0).map((v, i) => v + i));
+        cube.faces[Fi] = Face.from(Array(9).fill(9).map((v, i) => v + i));
+        cube.faces[Ri] = Face.from(Array(9).fill(18).map((v, i) => v + i));
+        cube.faces[Di] = Face.from(Array(9).fill(27).map((v, i) => v + i));
+        cube.faces[Bi] = Face.from(Array(9).fill(36).map((v, i) => v + i));
+        cube.faces[Li] = Face.from(Array(9).fill(45).map((v, i) => v + i));
+        return cube;
+    }
+
 
     public isSolved(): boolean {
         return this.faces.reduce<boolean>((prev, curr) => prev && curr.isSolid(), true);

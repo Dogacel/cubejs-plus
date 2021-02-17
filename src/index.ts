@@ -2,7 +2,7 @@ import { Cube } from "./cube";
 import { parse, reconstruct } from "./utils";
 export * from "./cube";
 
-const cube = new Cube();
+const cube = Cube.solved()
 
 cube.print();
 console.log(cube.isSolved());
