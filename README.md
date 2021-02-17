@@ -12,7 +12,7 @@
 ## Sample Code
 
 ```typescript
-const cube = new Cube();
+const cube = Cube.solved();
 
 cube.isSolved(); // true
 

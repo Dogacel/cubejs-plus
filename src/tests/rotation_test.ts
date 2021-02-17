@@ -13,7 +13,7 @@ const createAndMove = (m: Move, rest: (oldFaces: Face[], newFaces: Face[]) => an
     return () => rest(oldFaces, cube.faces);
 }
 
-describe('Solved rotates', () => {
+describe('Cube rotates', () => {
     describe('X axis', () => {
         it('X rotates correctly', createAndMove(Move.X, (oldFaces, newFaces) => {
             assert.deepEqual(oldFaces[Fi], newFaces[Ui])

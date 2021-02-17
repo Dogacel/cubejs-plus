@@ -41,6 +41,15 @@ export class Cube {
         return cube;
     }
 
+    public equals(cube: Cube): boolean {
+        return this.faces.reduce<boolean>(
+            (prev, curr, curr_index) =>
+                prev && curr.colors.reduce<boolean>(
+                    (_prev, _curr, _curr_index) =>
+                        prev && cube.faces[curr_index].colors[_curr_index] === _curr,
+                    true),
+            true);
+    }
 
     public isSolved(): boolean {
         return this.faces.reduce<boolean>((prev, curr) => prev && curr.isSolid(), true);
